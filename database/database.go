@@ -8,10 +8,23 @@ import (
 	"gorm.io/gorm"
 )
 
+const(
+	dbAddress = "localhost"
+	dbUser = "admin"
+	dbPassword = "admin"
+	dbName = "golang"
+	dbPort = "5432"
+	dbSslMode = "disable"
+	dbTimezone = "Asia/Jakarta"
+)
+
 var DB *gorm.DB
 
 func Connect() {
-	database := "host=localhost user=admin password=admin dbname=golang port=5432 sslmode=disable TimeZone=Asia/Jakarta"
+	database := fmt.Sprintf(
+		"host=%s user=%s password=%s dbname=%s port=%s sslmode=%s TimeZone=%s",
+		dbAddress, dbUser, dbPassword, dbName, dbPort, dbSslMode, dbTimezone,
+	)
 	var err error
 	DB, err = gorm.Open(postgres.Open(database), &gorm.Config{})
 	if err != nil {

@@ -39,6 +39,8 @@ Aplikasi web sederhana untuk mengelola data bioskop menggunakan Go, Gin, dan Pos
 
     Buat database dengan nama `golang`.
 
+    silahkan ganti password, username, port, dan database pada const main.go
+
 4.  **Konfigurasi Koneksi Database**.
 
     Sesuaikan string koneksi (`dsn`) di file `database/database.go` jika diperlukan.
@@ -53,7 +55,7 @@ Aplikasi web sederhana untuk mengelola data bioskop menggunakan Go, Gin, dan Pos
     go run main.go
     ```
 
-    Server akan berjalan di `http://localhost:8080`.
+    Server akan berjalan di `http://localhost:XXXX`.
 
 ---
 
@@ -63,8 +65,9 @@ Aplikasi web sederhana untuk mengelola data bioskop menggunakan Go, Gin, dan Pos
 
 Untuk endpoint **POST**, Anda memerlukan kredensial Basic Auth.
 
-- **Username**: `gaktau`
-- **Password**: `bilangwow`
+- **Username**: `XXXX`
+- **Password**: `XXXX`
+(ganti XXXX sesuai dengan kemauan anda, ubah username dan pass pada const main.go)
 
 ### Endpoint
 
@@ -73,7 +76,7 @@ Untuk endpoint **POST**, Anda memerlukan kredensial Basic Auth.
 Menambahkan data bioskop baru ke database.
 
 - **Metode**: `POST`
-- **URL**: `http://localhost:8080/bioskop`
+- **URL**: `http://localhost:XXXX/bioskop`
 - **Authorization**: Basic Auth (lihat di atas)
 - **Header**: `Content-Type: application/json`
 - **Body (JSON)**:
@@ -114,7 +117,7 @@ Menambahkan data bioskop baru ke database.
 Mengambil semua data bioskop.
 
 - **Metode**: `GET`
-- **URL**: `http://localhost:8080/bioskop`
+- **URL**: `http://localhost:XXXX/bioskop`
 - **Respons Sukses (200 OK)**:
 
     ```json
@@ -145,7 +148,7 @@ Mengambil semua data bioskop.
 Mengambil data bioskop spesifik berdasarkan ID.
 
 - **Metode**: `GET`
-- **URL**: `http://localhost:8080/bioskop/1` (ganti `1` dengan ID bioskop yang diinginkan)
+- **URL**: `http://localhost:XXXX/bioskop/1` (ganti `1` dengan ID bioskop yang diinginkan)
 - **Respons Sukses (200 OK)**:
 
     ```json
@@ -164,5 +167,25 @@ Mengambil data bioskop spesifik berdasarkan ID.
     ```json
     {
         "error": "Bioskop tidak ditemukan"
+    }
+    ```
+
+
+#### 4. `PUT /bioskop/:id`
+
+Memperbaharui data bioskop spesifik berdasarkan ID.
+
+- **Metode**: `PUT`
+- **URL**: `http://localhost:XXXX/bioskop/1` (ganti `1` dengan ID bioskop yang diinginkan, XXXx ganti dengan port sesuai pada const main.go)
+- **Respons Sukses (200 OK)**:
+
+    ```json
+    {
+        "ID": 1,
+        "CreatedAt": "2023-10-26T10:00:00.000Z",
+        "UpdatedAt": "2023-10-26T10:00:00.000Z",
+        "nama": "XXI Gandaria City",
+        "lokasi": "Jakarta",
+        "rating": 4.5
     }
     ```

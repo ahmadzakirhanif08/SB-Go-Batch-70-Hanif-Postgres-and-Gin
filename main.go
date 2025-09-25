@@ -19,6 +19,8 @@ func main() {
 		"gaktau": "bilangwow",
 	}))
 	authorized.POST("/bioskop", handlers.TambahBioskop)
+	authorized.PUT("/bioskop/:id", handlers.PerbaharuiBioskop)
+	authorized.DELETE("/bioskop/:id", handlers.HapusBioskop)
 
-	r.Run(":8080")
+	r.Run(":9090")
 }
