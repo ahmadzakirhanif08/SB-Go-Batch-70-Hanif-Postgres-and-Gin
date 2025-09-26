@@ -34,6 +34,13 @@ func main() {
 	authorized.DELETE("/bioskop/:id", handlers.HapusBioskop)
 	authorized.POST("/bioskop/:id/film", handlers.TambahFilm)
 
-	r.SetTrustedProxies([]string{"127.0.0.1"})
-	r.Run(":9090")
+	//r.SetTrustedProxies([]string{"127.0.0.1"})
+	//r.Run(":9090")
+
+	port := os.Getenv("DB_PORT")
+	if port == ""{
+		port = "9090"
+	}
+
+	r.Run(":"+port)
 }
