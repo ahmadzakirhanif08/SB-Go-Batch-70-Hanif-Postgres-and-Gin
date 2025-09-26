@@ -3,7 +3,6 @@ package main
 import (
 	"bioskop-api/database"
 	"bioskop-api/handlers"
-
 	"github.com/gin-gonic/gin"
 )
 
@@ -21,6 +20,8 @@ func main() {
 	authorized.POST("/bioskop", handlers.TambahBioskop)
 	authorized.PUT("/bioskop/:id", handlers.PerbaharuiBioskop)
 	authorized.DELETE("/bioskop/:id", handlers.HapusBioskop)
+	authorized.POST("/bioskop/:id/film", handlers.TambahFilm)
 
+	r.SetTrustedProxies([]string{"127.0.0.1"})
 	r.Run(":9090")
 }

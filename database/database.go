@@ -28,10 +28,10 @@ func Connect() {
 	var err error
 	DB, err = gorm.Open(postgres.Open(database), &gorm.Config{})
 	if err != nil {
-		log.Fatal("Gagal terhubung ke database")
+		log.Fatal("Database connection error, please check connection")
 	}
 
-	fmt.Println("Berhasil terhubung ke database!")
+	fmt.Printf("Successfully connected to database: %s",dbName)
 	
-	DB.AutoMigrate(&models.Bioskop{})
+	DB.AutoMigrate(&models.Bioskop{}, &models.Film{}, &models.JadwalFilm{})
 }
