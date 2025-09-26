@@ -12,26 +12,27 @@ import (
 var DB *gorm.DB
 
 func Connect() {
-
-	dbAddress := os.Getenv("DB_HOST")
-	dbUser := os.Getenv("DB_USER")
-	dbPassword := os.Getenv("DB_PASSWORD")
-	dbName := os.Getenv("DB_NAME")
-	dbPort := os.Getenv("DB_PORT")
-	dbSslMode := "disable"
-	dbTimezone := "Asia/Jakarta"
-
-	database := fmt.Sprintf(
-		"host=%s user=%s password=%s dbname=%s port=%s sslmode=%s TimeZone=%s",
-		dbAddress, dbUser, dbPassword, dbName, dbPort, dbSslMode, dbTimezone,
-	)
+	var database string
+	if os.Getenv("DATABASE_URL") != "" {
+		// Jika ada, gunakan DSN dari Railway secara langsung
+		database = os.Getenv("DATABASE_URL")
+	} else {
+		dbHost := os.Getenv("DB_HOST")
+		dbPort := os.Getenv("DB_PORT")
+		dbUser := os.Getenv("DB_USER")
+		dbPassword := os.Getenv("DB_PASSWORD")
+		dbName := os.Getenv("DB_NAME")
+		
+		database = fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable TimeZone=Asia/Jakarta",
+			dbHost, dbUser, dbPassword, dbName, dbPort)
+	}
 	var err error
 	DB, err = gorm.Open(postgres.Open(database), &gorm.Config{})
 	if err != nil {
 		log.Fatal("Database connection error, please check connection")
 	}
 
-	fmt.Printf("Successfully connected to database: %s", dbName)
+	fmt.Println("Successfully connected to database")
 
 	DB.AutoMigrate(&models.Bioskop{}, &models.Film{}, &models.JadwalFilm{})
 }
