@@ -63,10 +63,10 @@ Aplikasi web sederhana untuk mengelola data bioskop menggunakan Go, Gin, dan Pos
 
 ### Basic Authentication
 
-Untuk endpoint **POST**, Anda memerlukan kredensial Basic Auth.
+Untuk endpoint **POST**, **PUT**, dan **DELETE**, Anda memerlukan kredensial Basic Auth.
 
-- **Username**: `XXXX`
-- **Password**: `XXXX`
+-   **Username**: `XXXX`
+-   **Password**: `XXXX`
 (ganti XXXX sesuai dengan kemauan anda, ubah username dan pass pada const main.go)
 
 ### Endpoint
@@ -75,11 +75,11 @@ Untuk endpoint **POST**, Anda memerlukan kredensial Basic Auth.
 
 Menambahkan data bioskop baru ke database.
 
-- **Metode**: `POST`
-- **URL**: `http://localhost:XXXX/bioskop`
-- **Authorization**: Basic Auth (lihat di atas)
-- **Header**: `Content-Type: application/json`
-- **Body (JSON)**:
+-   **Metode**: `POST`
+-   **URL**: `http://localhost:XXXX/bioskop`
+-   **Authorization**: Basic Auth (lihat di atas)
+-   **Header**: `Content-Type: application/json`
+-   **Body (JSON)**:
 
     ```json
     {
@@ -89,24 +89,24 @@ Menambahkan data bioskop baru ke database.
     }
     ```
 
-- **Respons Sukses (201 Created)**:
+-   **Respons Sukses (201 Created)**:
 
     ```json
     {
-        "ID": 1,
-        "CreatedAt": "2023-10-26T10:00:00.000Z",
-        "UpdatedAt": "2023-10-26T10:00:00.000Z",
-        "nama": "XXI Gandaria City",
-        "lokasi": "Jakarta",
-        "rating": 4.5
+      "ID": 1,
+      "CreatedAt": "2023-10-26T10:00:00.000Z",
+      "UpdatedAt": "2023-10-26T10:00:00.000Z",
+      "nama": "XXI Gandaria City",
+      "lokasi": "Jakarta",
+      "rating": 4.5
     }
     ```
 
-- **Respons Gagal (400 Bad Request)**:
+-   **Respons Gagal (400 Bad Request)**:
 
     ```json
     {
-        "error": "Nama dan Lokasi tidak boleh kosong"
+      "error": "Nama dan Lokasi tidak boleh kosong"
     }
     ```
 
@@ -116,9 +116,9 @@ Menambahkan data bioskop baru ke database.
 
 Mengambil semua data bioskop.
 
-- **Metode**: `GET`
-- **URL**: `http://localhost:XXXX/bioskop`
-- **Respons Sukses (200 OK)**:
+-   **Metode**: `GET`
+-   **URL**: `http://localhost:XXXX/bioskop`
+-   **Respons Sukses (200 OK)**:
 
     ```json
     [
@@ -147,45 +147,132 @@ Mengambil semua data bioskop.
 
 Mengambil data bioskop spesifik berdasarkan ID.
 
-- **Metode**: `GET`
-- **URL**: `http://localhost:XXXX/bioskop/1` (ganti `1` dengan ID bioskop yang diinginkan)
-- **Respons Sukses (200 OK)**:
+-   **Metode**: `GET`
+-   **URL**: `http://localhost:XXXX/bioskop/1` (ganti `1` dengan ID bioskop yang diinginkan)
+-   **Respons Sukses (200 OK)**:
 
     ```json
     {
-        "ID": 1,
-        "CreatedAt": "2023-10-26T10:00:00.000Z",
-        "UpdatedAt": "2023-10-26T10:00:00.000Z",
-        "nama": "XXI Gandaria City",
-        "lokasi": "Jakarta",
-        "rating": 4.5
+      "ID": 1,
+      "CreatedAt": "2023-10-26T10:00:00.000Z",
+      "UpdatedAt": "2023-10-26T10:00:00.000Z",
+      "nama": "XXI Gandaria City",
+      "lokasi": "Jakarta",
+      "rating": 4.5
     }
     ```
 
-- **Respons Gagal (404 Not Found)**:
+-   **Respons Gagal (404 Not Found)**:
 
     ```json
     {
-        "error": "Bioskop tidak ditemukan"
+      "error": "Bioskop tidak ditemukan"
     }
     ```
 
+---
 
 #### 4. `PUT /bioskop/:id`
 
-Memperbaharui data bioskop spesifik berdasarkan ID.
+Memperbarui data bioskop spesifik berdasarkan ID.
 
-- **Metode**: `PUT`
-- **URL**: `http://localhost:XXXX/bioskop/1` (ganti `1` dengan ID bioskop yang diinginkan, XXXx ganti dengan port sesuai pada const main.go)
-- **Respons Sukses (200 OK)**:
+-   **Metode**: `PUT`
+-   **URL**: `http://localhost:XXXX/bioskop/1` (ganti `1` dengan ID bioskop yang diinginkan)
+-   **Authorization**: Basic Auth (lihat di atas)
+-   **Header**: `Content-Type: application/json`
+-   **Body (JSON)**:
 
     ```json
     {
-        "ID": 1,
-        "CreatedAt": "2023-10-26T10:00:00.000Z",
-        "UpdatedAt": "2023-10-26T10:00:00.000Z",
-        "nama": "XXI Gandaria City",
-        "lokasi": "Jakarta",
-        "rating": 4.5
+      "nama": "Cinema XXI",
+      "lokasi": "Bandung",
+      "rating": 4.7
+    }
+    ```
+
+-   **Respons Sukses (200 OK)**:
+
+    ```json
+    {
+      "ID": 1,
+      "CreatedAt": "2023-10-26T10:00:00.000Z",
+      "UpdatedAt": "2023-10-26T10:00:00.000Z",
+      "nama": "Cinema XXI",
+      "lokasi": "Bandung",
+      "rating": 4.7
+    }
+    ```
+
+-   **Respons Gagal (404 Not Found)**:
+
+    ```json
+    {
+      "error": "Bioskop tidak ditemukan"
+    }
+    ```
+
+---
+
+#### 5. `DELETE /bioskop/:id`
+
+Menghapus data bioskop spesifik berdasarkan ID.
+
+-   **Metode**: `DELETE`
+-   **URL**: `http://localhost:XXXX/bioskop/1` (ganti `1` dengan ID bioskop yang ingin dihapus)
+-   **Authorization**: Basic Auth (lihat di atas)
+-   **Respons Sukses (200 OK)**:
+
+    ```json
+    {
+      "message": "Bioskop berhasil dihapus"
+    }
+    ```
+
+-   **Respons Gagal (404 Not Found)**:
+
+    ```json
+    {
+      "error": "Bioskop tidak ditemukan"
+    }
+    ```
+---
+
+#### 6. `POST /bioskop/:id/film`
+
+Menambahkan film baru ke bioskop spesifik berdasarkan ID.
+
+-   **Metode**: `POST`
+-   **URL**: `http://localhost:XXXX/bioskop/1/film` (ganti `1` dengan ID bioskop yang diinginkan)
+-   **Authorization**: Basic Auth (lihat di atas)
+-   **Header**: `Content-Type: application/json`
+-   **Body (JSON)**:
+
+    ```json
+    {
+      "judul": "Avengers: Endgame",
+      "durasi": 181,
+      "genre": "Action"
+    }
+    ```
+
+-   **Respons Sukses (201 Created)**:
+
+    ```json
+    {
+      "ID": 1,
+      "CreatedAt": "2023-10-26T10:00:00.000Z",
+      "UpdatedAt": "2023-10-26T10:00:00.000Z",
+      "Judul": "Avengers: Endgame",
+      "Durasi": 181,
+      "Genre": "Action",
+      "BioskopID": 1
+    }
+    ```
+
+-   **Respons Gagal (404 Not Found)**:
+
+    ```json
+    {
+      "error": "Bioskop tidak ditemukan"
     }
     ```
