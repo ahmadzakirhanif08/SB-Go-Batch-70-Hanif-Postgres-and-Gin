@@ -1,26 +1,26 @@
 package database
 
 import (
+	"bioskop-api/models"
 	"fmt"
 	"log"
-	"bioskop-api/models"
+	"os"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
-)
-
-const(
-	dbAddress = "localhost"
-	dbUser = "admin"
-	dbPassword = "admin"
-	dbName = "golang"
-	dbPort = "5432"
-	dbSslMode = "disable"
-	dbTimezone = "Asia/Jakarta"
 )
 
 var DB *gorm.DB
 
 func Connect() {
+
+	dbAddress := os.Getenv("DB_HOST")
+	dbUser := os.Getenv("DB_USER")
+	dbPassword := os.Getenv("DB_PASSWORD")
+	dbName := os.Getenv("DB_NAME")
+	dbPort := os.Getenv("DB_PORT")
+	dbSslMode := "disable"
+	dbTimezone := "Asia/Jakarta"
+
 	database := fmt.Sprintf(
 		"host=%s user=%s password=%s dbname=%s port=%s sslmode=%s TimeZone=%s",
 		dbAddress, dbUser, dbPassword, dbName, dbPort, dbSslMode, dbTimezone,
@@ -31,7 +31,7 @@ func Connect() {
 		log.Fatal("Database connection error, please check connection")
 	}
 
-	fmt.Printf("Successfully connected to database: %s",dbName)
-	
+	fmt.Printf("Successfully connected to database: %s", dbName)
+
 	DB.AutoMigrate(&models.Bioskop{}, &models.Film{}, &models.JadwalFilm{})
 }
